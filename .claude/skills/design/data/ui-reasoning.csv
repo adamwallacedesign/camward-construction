@@ -1,0 +1,57 @@
+product_type,recommended_style,color_mood,typography_mood,key_effects,anti_patterns,severity
+SaaS (General),Hero + Features + CTA,Trust blue + Orange CTA,Clean,,,
+geometric,Glassmorphism cards hover lift,Cluttered hero with too many CTAs,HIGH,,,
+Fintech/Crypto,Conversion-Optimized,Deep purple + Amber accents,Modern sans-serif,Dark,,
+mode glassmorphism,Light backgrounds reduce trust,MEDIUM,,,,
+Restaurant/Food,Menu-First Visual,Warm red + Gold accents,Friendly rounded,Food,,
+photography parallax,Stock photos instead of real food,HIGH,,,,
+Healthcare,Patient-Centric,Calm Teal + Soft Grey,High-legibility Sans,Micro-animations for feedback,Red/Yellow primary colors (anxiety triggers),HIGH
+E-commerce (Luxury),Minimalist/High-Fashion,Classic Black + Ivory,Elegant Serif,Fade-in image reveals,Loud discount banners or pop-ups,HIGH
+Cybersecurity,Terminal/High-Shield,Deep Navy + Neon Green,Monospace accents,Data-stream backgrounds,Bright/Playful pastel color palettes,MEDIUM
+Education/EdTech,Focus-Driven,Energizing Blue + Yellow,Soft rounded fonts,Gamification progress bars,Overwhelming gamification noise,MEDIUM
+Legal/Law Firm,Stately/Professional,Navy + Charcoal,Traditional Serif,Subtle border dividers,Casual/Comic-style iconography,HIGH
+Real Estate,Image-Centric,Clean White + Slate,Modern Sans-serif,Full-width galleries,Hidden property pricing/CTA buttons,HIGH
+Gaming (Hardcore),Aggressive/High-Octane,Electric Red + Matte Black,Futuristic/Angled,Neon glows and glitch effects,Low-contrast text on busy backgrounds,MEDIUM
+Mental Health App,Zen/Minimalist,Soft Lavender + Sage,Thin Sans-serif,Gradient breathing guides,Aggressive push notifications,HIGH
+B2B Enterprise,Data-Dense,Corporate Blue + Silver,Functional Sans,Sortable data tables,Oversized 'cute' illustrations,MEDIUM
+Logistics/Supply Chain,Utility-First,Industrial Orange + Grey,Condensed Sans,Status tracking timelines,Over-animated UI transitions,LOW
+Automotive,Speed/Performance,Jet Black + Chrome,Italicized Sans-serif,Reflective surface textures,Complex multi-level navigation menus,MEDIUM
+Travel/Tourism,Destination-Focused,Azure + Sun Yellow,Adventurous Serif,Immersive video headers,Auto-playing audio on landing,HIGH
+Non-Profit/Charity,Impact-Driven,Earth Tones + Warmth,Humanist Sans,Heart-icon micro-interactions,Hiding the 'Donate' button in menus,HIGH
+Fashion (Fast-Fashion),Trend-Heavy,Hot Pink + Acid Green,Extra-Bold Display,Social proof ticker tapes,Slow-loading high-res assets,MEDIUM
+Music/Streaming,Atmospheric,Deep Violet + Vibrant Cyan,Dynamic Variable Fonts,Audio wave visualizations,Small touch targets for playback,HIGH
+Agriculture/AgTech,Data-Grounded,Forest Green + Soil Brown,Sturdy Slab-Serif,Map-view overlays,Excessive tech-jargon in UI labes,LOW
+Fitness/Wellness,Motivator,Electric Orange + Lime,Heavy Condensed Sans,Activity rings,Unskippable onboarding tutorials,MEDIUM
+Jewelry/Gems,Sparkle/Elegance,Rose Gold + Deep Emerald,Classic Serif,High-contrast lighting,Low-quality/Grainy product close-ups,HIGH
+Pet Care,Friendly/Playful,Warm Tan + Soft Pink,Rounded Display,Paw-print accents,Hostile/Medical-only aesthetic,MEDIUM
+Architecture,Structural/Grid,Concrete Grey + White,Geometric Mono,Strict alignment grids,Non-standard/Creative scroll behaviors,MEDIUM
+News/Media,Readability-First,Paper White + Ink Black,Newspaper Serif,Reading progress indicators,Intrusive mid-article video ads,HIGH
+Crypto Wallet,Security-First,Holographic Blue + Silver,Functional Sans,Real-time balance updates,Hidden transaction gas fees,HIGH
+Construction/Trade,Rugged/Direct,Safety Yellow + Black,Blocky Sans,Heavy-duty buttons,Thin/Delicate line-art icons,MEDIUM
+Kids/Toys,Whimsical,Rainbow Palette,Bubble/Rounded,Particle effects,Complex login/Authentication flows,HIGH
+Government/Public,Accessible,National Blue + Cream,System Standard Sans,Clear hierarchy headings,Proprietary/Hard-to-render fonts,HIGH
+Beverage/Alcohol,Mood-Driven,Deep Burgundy + Amber,Sophisticated Serif,Liquid flow animations,Low-contrast age-gate screens,MEDIUM
+Professional Services,Trust-Build,Steel Blue + White,Balanced Sans,Testimonial carousels,Ghost buttons for primary actions,MEDIUM
+Manufacturing,Precision-Based,Metallic Grey + Red Accents,Functional Mono,Blueprint backgrounds,Vague iconography without labels,LOW
+Beauty/Cosmetics,Aesthetic-First,Peach + Soft Gold,Elegant Serif,Smooth skin-texture filters,Cluttered 'Buy Now' overlays,MEDIUM
+Sports (Live),Urgency-Driven,Team Colors + High-Vis,Extra-Bold Italics,Live score tickers,Delayed state updates (>1s),HIGH
+Event/Conference,Information-Rich,Electric Purple + White,Modern Display,Dynamic scheduling blocks,Missing 'Add to Calendar' button,MEDIUM
+SaaS (Developer),Utility/Code,Dark Mode + Syntax Colors,Fira Code/Monospace,Copy-to-clipboard buttons,Marketing-heavy splash pages,HIGH
+Hospitality (Hotel),Relaxation/Luxury,Champagne + Deep Teal,Classic Serif,Ken Burns image effects,Complex booking date-pickers,HIGH
+Telecommunications,Connectivity,Sky Blue + White,Standard Humanist Sans,Signal strength visuals,Tiny/Hidden 'Unsubscribe' buttons,MEDIUM
+Energy/Utilities,Reliability,Electric Blue + Lime,Functional Sans,Consumption graphs,Hidden price breakdown details,MEDIUM
+Job Board,Efficiency-First,Business Blue + Grey,Legible Sans,Quick-apply buttons,Lack of search filters on mobile,HIGH
+Portfolio (Design),Individualistic,High Contrast Monochrome,Unique Display,Custom cursor effects,Breaking the browser 'Back' button,HIGH
+Social Media,Engagement-Driven,Platform Brand Color,Adaptive Sans,Infinite scroll,Complicated privacy settings UI,HIGH
+E-learning (Kids),Engaging,Pastel Rainbow,Handwritten-style,Character mascots,Heavy text-based instructions,HIGH
+Banking,Fortress/Stable,Deep Navy + Gold,Classic Sans,Secure lock icons,Using 'informal' emojis in alerts,MEDIUM
+Interior Design,Visual/Space,Neutral Beige + Black,Wide-tracked Sans,White space breathing,Over-stylized 'Artsy' navigation,MEDIUM
+Aviation,Precision/Controls,Cockpit Grey + Alert Red,Standard Mono,Horizon-line dials,Using red for non-critical alerts,HIGH
+Insurance,Safety/Protection,Deep Blue + Soft Green,Friendly Sans,Checklist UI,Fine-print hidden in tooltips,MEDIUM
+Marketing Agency,Creative/Bold,Neon Cyan + Black,Brutalism Display,Hover-triggered video,Standard/Boring template layouts,LOW
+Pharmacy,Clinical/Clear,White + Medical Blue,Clear Sans,Dosage reminders,Using serif fonts for medicine names,MEDIUM
+Dating,Connection/Vibe,Pink + Red Tones,Playful Serif,Swipe-card physics,Mandatory long text bios,MEDIUM
+Podcasting,Audio-First,Waveform Colors,Readable Sans,Speed control sliders,Lack of scrubber bar on mobile,HIGH
+Gardening/Plant,Organic,Leaf Green + Terracotta,Friendly Serif,Seasonal growth charts,Overly clinical/Grey color schemes,MEDIUM
+Consulting,Authority,Midnight Blue + Silver,Authoritative Serif,Case study cards,Stock photos of 'People Shaking Hands',HIGH
+Logistics (Courier),Track-First,Courier Yellow + Black,Bold Sans,Map tracking UI,Multi-step login to track package,HIGH

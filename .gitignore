@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Source files (large, not needed for the live site)
+assets/*.psd
+assets/**/*.psd
+psd/
+
+# Project resources kept out of source control
+logo_pack/
+docs/
+
+# Logs
+*.log
