@@ -18,5 +18,12 @@ psd/
 logo_pack/
 docs/
 
+# Reference screenshots and design comparisons (local working images)
+v2-*.jpg
+weitz-*.jpg
+
+# Tooling caches
+.playwright-mcp/
+
 # Logs
 *.log

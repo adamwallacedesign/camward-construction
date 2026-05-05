@@ -1,6 +1,7 @@
 /* =========================================================
-   Camward Timber Construction
-   Vanilla JS: mobile nav, lightbox, scroll reveal, year
+   Camward Timber Construction — redesign-v2
+   Lenis smooth scroll + GSAP ScrollTrigger
+   Mirrors weitz.com architecture (without paid ScrollSmoother)
    ========================================================= */
 
 (function () {
@@ -8,6 +9,8 @@
 
   const $  = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- Footer year ---------- */
   const yr = $('#year');
@@ -38,53 +41,196 @@
     });
   }
 
-  /* ---------- Scroll reveal ---------- */
-  const revealable = $$('.section, .hero-inner');
-  revealable.forEach(el => el.classList.add('reveal'));
+  /* ---------- Header scroll state ---------- */
+  const header = $('.site-header');
+  const onScroll = () => {
+    if (!header) return;
+    if (window.scrollY > 50) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in');
-          io.unobserve(entry.target);
-        }
+  /* ---------- Boot once libs are ready ---------- */
+  function bootScroll() {
+    if (typeof window.Lenis === 'undefined' || typeof window.gsap === 'undefined' || typeof window.ScrollTrigger === 'undefined') {
+      return setTimeout(bootScroll, 30);
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* Lenis smooth scroll (replaces ScrollSmoother) */
+    const lenis = !reduceMotion ? new Lenis({
+      duration: 1.1,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // expo.out
+      smoothWheel: true,
+      smoothTouch: false,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.4,
+    }) : null;
+
+    if (lenis) {
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+
+      // Anchor links go through Lenis
+      $$('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', (e) => {
+          const id = a.getAttribute('href');
+          if (id.length <= 1) return;
+          const target = document.querySelector(id);
+          if (!target) return;
+          e.preventDefault();
+          lenis.scrollTo(target, { offset: -60, duration: 1.4 });
+        });
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px -10% 0px' });
-    revealable.forEach(el => io.observe(el));
-  } else {
-    revealable.forEach(el => el.classList.add('in'));
-  }
+    }
 
-  /* ---------- Parallax ---------- */
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const parallaxEls = $$('[data-parallax]');
-
-  if (parallaxEls.length && !reduceMotion) {
-    let ticking = false;
-    const anchorFor = (el) => el.closest('section, .hero') || el.parentElement;
-    const update = () => {
-      const vh = window.innerHeight;
-      parallaxEls.forEach(el => {
-        const rect = anchorFor(el).getBoundingClientRect();
-        if (rect.bottom < -100 || rect.top > vh + 100) return;
-        const speed = parseFloat(el.dataset.parallax) || 0.25;
-        const centre = rect.top + rect.height / 2;
-        const offset = (centre - vh / 2) * -speed;
-        el.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
+    /* ---------- HERO: pin + scrub fill ---------- */
+    const hero = $('#hero');
+    if (hero) {
+      ScrollTrigger.create({
+        trigger: hero,
+        start: 'top top',
+        end: '+=80%',
+        pin: false,
+        scrub: 0.6,
+        onUpdate: (self) => {
+          if (self.progress > 0.25) hero.classList.add('is-filled');
+          else hero.classList.remove('is-filled');
+        },
       });
-      ticking = false;
-    };
-    const onScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(update);
-        ticking = true;
+
+      // Subtle bg parallax (image moves slower than scroll)
+      const heroBg = hero.querySelector('.hero-bg img');
+      if (heroBg) {
+        gsap.to(heroBg, {
+          yPercent: 18,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: hero,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 0.4,
+          },
+        });
       }
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    update();
+
+      // Hero copy slides up + fades out as you scroll past
+      const heroInner = hero.querySelector('.hero-inner');
+      if (heroInner) {
+        gsap.to(heroInner, {
+          y: -60,
+          opacity: 0.4,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: hero,
+            start: 'top top',
+            end: 'bottom 50%',
+            scrub: 0.6,
+          },
+        });
+      }
+    }
+
+    /* ---------- SECTION SCALE: subtle scale-in on enter ---------- */
+    $$('.section-scale').forEach(sec => {
+      gsap.fromTo(sec,
+        { scale: 0.97, opacity: 0.85 },
+        {
+          scale: 1,
+          opacity: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sec,
+            start: 'top 90%',
+            end: 'top 50%',
+            scrub: 1,
+          },
+        });
+    });
+
+    /* ---------- CONTENT-FADE: gentle reveal ---------- */
+    $$('.content-fade').forEach(el => {
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 88%',
+        once: true,
+        onEnter: () => el.classList.add('is-in'),
+      });
+    });
+
+    /* ---------- GRID-ITEMS: stagger active class within siblings ---------- */
+    const groupedByParent = new Map();
+    $$('.grid-item').forEach(item => {
+      const p = item.parentElement;
+      if (!groupedByParent.has(p)) groupedByParent.set(p, []);
+      groupedByParent.get(p).push(item);
+    });
+    groupedByParent.forEach(items => {
+      items.forEach((item, i) => {
+        ScrollTrigger.create({
+          trigger: item,
+          start: 'top 88%',
+          once: true,
+          onEnter: () => {
+            setTimeout(() => item.classList.add('active'), i * 70);
+          },
+        });
+      });
+    });
+
+    /* ---------- STATS: pinned section, scrub between stats with cross-fade bgs ---------- */
+    const stats = $('#stats');
+    if (stats) {
+      const slides = stats.querySelectorAll('.stat-slide');
+      const dots   = stats.querySelectorAll('.stats-rail-dot');
+      const bgs    = stats.querySelectorAll('.stat-bg');
+      const pin    = stats.querySelector('.stats-pin');
+      const total  = slides.length;
+
+      const setActive = (idx) => {
+        slides.forEach((s, i) => s.classList.toggle('is-active', i === idx));
+        dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+        bgs.forEach((b, i) => b.classList.toggle('is-active', i === idx));
+      };
+      setActive(0);
+
+      ScrollTrigger.create({
+        trigger: stats,
+        start: 'top top',
+        end: () => `+=${(total) * window.innerHeight * 0.9}`,
+        pin: pin,
+        pinSpacing: true,
+        scrub: 0.4,
+        onUpdate: (self) => {
+          const idx = Math.min(total - 1, Math.floor(self.progress * total));
+          setActive(idx);
+        },
+      });
+
+      // Subtle parallax on all bg images — visible one drifts slowly through the pin
+      const bgImgs = stats.querySelectorAll('.stat-bg img');
+      if (bgImgs.length) {
+        gsap.to(bgImgs, {
+          yPercent: 8,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: stats,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 0.6,
+          },
+        });
+      }
+    }
+
+    /* ---------- Refresh on resize / load ---------- */
+    window.addEventListener('load', () => ScrollTrigger.refresh());
   }
+
+  bootScroll();
 
   /* ---------- Lightbox ---------- */
   const lb       = $('#lightbox');
@@ -117,12 +263,17 @@
       lb.classList.add('open');
       lb.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
+      if (typeof window.Lenis !== 'undefined') {
+        const lenisInstance = window.__lenis;
+        if (lenisInstance) lenisInstance.stop();
+      }
       lbClose.focus();
     };
     const close = () => {
       lb.classList.remove('open');
       lb.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
+      if (window.__lenis) window.__lenis.start();
       lbImg.src = '';
       if (lastFocus) lastFocus.focus();
     };
