@@ -296,7 +296,7 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 .hero-logo {
-  width: clamp(144px, 17vw, 216px);
+  width: clamp(173px, 20.4vw, 259px);
   height: auto;
   margin-bottom: clamp(32px, 4vw, 56px);
   filter: brightness(2);
@@ -306,7 +306,7 @@ html.lenis, html.lenis body { height: auto; }
 .hero-title {
   font-family: var(--display);
   font-weight: 800;
-  font-size: clamp(1.7rem, 5.75vw, 5.5rem);
+  font-size: clamp(1.5rem, 5vw, 4.85rem);
   line-height: .92;
   letter-spacing: -.045em;
   margin: 0 0 28px;
@@ -1068,7 +1068,7 @@ html.lenis, html.lenis body { height: auto; }
   .g { aspect-ratio: 4 / 3; }
   .g::after, .g::before { inset: 10px; }
 
-  .hero-logo { width: clamp(90px, 22vw, 130px); margin-bottom: 24px; }
+  .hero-logo { width: clamp(108px, 26.4vw, 156px); margin-bottom: 24px; }
   .hero-inner { padding-top: 120px; }
   .hero-foot { gap: 20px; }
   .stats-rail { display: none; }
