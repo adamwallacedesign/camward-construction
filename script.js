@@ -235,7 +235,8 @@
   /* ---------- Lightbox ---------- */
   const lb       = $('#lightbox');
   const lbImg    = $('#lb-img');
-  const lbCap    = $('#lb-cap');
+  const lbTitle  = $('#lb-title');
+  const lbDesc   = $('#lb-desc');
   const lbClose  = $('.lb-close');
   const lbPrev   = $('.lb-prev');
   const lbNext   = $('.lb-next');
@@ -245,7 +246,12 @@
     const slides = triggers.map(btn => {
       const img = btn.querySelector('img');
       const cap = btn.querySelector('.g-cap');
-      return { src: img.src, alt: img.alt, caption: cap ? cap.textContent : '' };
+      return {
+        src: img.src,
+        alt: img.alt,
+        title: cap ? cap.textContent : '',
+        desc: btn.dataset.desc || ''
+      };
     });
     let current = 0;
     let lastFocus = null;
@@ -255,7 +261,8 @@
       const s = slides[current];
       lbImg.src = s.src;
       lbImg.alt = s.alt;
-      lbCap.textContent = s.caption;
+      if (lbTitle) lbTitle.textContent = s.title;
+      if (lbDesc) lbDesc.textContent = s.desc;
     };
     const open = (i) => {
       lastFocus = document.activeElement;
